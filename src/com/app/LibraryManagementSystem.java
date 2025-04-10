@@ -24,7 +24,8 @@ public class LibraryManagementSystem {
             System.out.println("4. List all Patrons");
             System.out.println("5. Boorow Book");
             System.out.println("6. Return Book");
-            System.out.println("7. Exit");
+            System.out.println("7. Borrowed book by patrons");
+            System.out.println("8. Exit");
             System.out.println("---------------------------------------");
             System.out.println("Enter your choice:");
 
@@ -67,8 +68,11 @@ public class LibraryManagementSystem {
                     title = sc.nextLine();
                     lms.returnBook(name, title);
                     break;
+                    
+           case 7:  lms.borrowedByPatrons();
+                    break;
 
-           case 7:  System.out.println("Thank you for using this LMS");
+           case 8:  System.out.println("Thank you for using this LMS");
                     sc.close();
                     return;
                  
@@ -78,6 +82,19 @@ public class LibraryManagementSystem {
             }
         }
     }
+
+	private void borrowedByPatrons() {
+		System.out.println("List of Books Borrowed By Patrons:");
+		for(int i=0;i<patronCount;i++) {
+			Patron p=patrons[i];
+			System.out.print(p.getName() + " has ");
+			if(p.getBorrowedBook()!=null) {
+				System.out.println("borrowed "+p.getBorrowedBook().getTitle()+" book");
+			} else {
+				System.out.println("not borrowed any book");
+			}
+		}
+	}
 
 	private void addBook(String title, String author) {
         if (bookCount >= maxB) {

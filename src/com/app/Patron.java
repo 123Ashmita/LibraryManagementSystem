@@ -37,6 +37,6 @@ public class Patron {
     }
 
 	public void printPatrons() {
-		System.out.println("patrons are "+name);
+		System.out.println(name);
 	}
 }
