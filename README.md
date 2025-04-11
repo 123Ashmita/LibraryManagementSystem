@@ -1,7 +1,7 @@
-* Library Management System  <br>
+# Library Management System  <br>
 A simple console-based Java application that allows users to manage books and patrons in a library. This includes adding books, adding patrons, borrowing and returning books, and getting all data.
 <br>
-* Features   <br>
+#  Features   <br>
 1.Add books and patrons   <br>
 2.Borrow and return books  <br>
 3.View all books and patrons  <br>
@@ -9,7 +9,7 @@ A simple console-based Java application that allows users to manage books and pa
 
 <br>
 
-* Project Structure  <br>
+# Project Structure  <br>
 
 LibraryManagementSystem/  <br>
 │    <br> 
