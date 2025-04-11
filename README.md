@@ -6,6 +6,9 @@ A simple console-based Java application that allows users to manage books and pa
 2.Borrow and return books  <br>
 3.View all books and patrons  <br>
 
+
+<br>
+
 * Project Structure  <br>
 
 LibraryManagementSystem/  <br>
