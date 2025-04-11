@@ -44,7 +44,7 @@ Choose 6 to return it.  <br>
 * Notes   <br>
 1.Each patron can borrow only one book at a time.  <br>
 2.Book availability is checked before borrowing.   <br>
-3.Maximum of 100 books and 50 patrons are supported.  <br>
+<br>
 
 
   Github clone - https://github.com/123Ashmita/LibraryManagementSystem   <br>
