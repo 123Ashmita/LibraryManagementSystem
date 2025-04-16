@@ -45,6 +45,9 @@ Choose 6 to return it.  <br>
 * Notes   <br>
 1.Each patron can borrow multiples book at a time.  <br>
 2.Book availability is checked before borrowing.   <br>
+3.Books will borrowed by only one patrons at a time. <br>
+
+<p>So this is one to many relationship table</p>
 <br>
 
 
