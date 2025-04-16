@@ -1,16 +1,20 @@
 package com.app;
 
 public class Book {
+	private int bookId;
     private String title;
     private String author;
     private boolean isAvailable;
 
-    public Book(String title, String author) {
+    public Book(int bookid,String title, String author) {
+    	this.bookId=bookid;
         this.title = title;
         this.author = author;
         this.isAvailable = true;
     }
-
+    public int getBookId() {
+    	return bookId;
+    }
     public String getTitle() {
         return title;
     }
@@ -28,6 +32,6 @@ public class Book {
     }
 
 	public void printBooks() {
-	  System.out.println(title+" by "+author+" ");
+	  System.out.println("Book id "+this.bookId+" || "+this.title+" by "+this.author+" ");
 	}
 }

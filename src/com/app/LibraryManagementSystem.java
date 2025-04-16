@@ -32,19 +32,35 @@ public class LibraryManagementSystem {
             choice = sc.nextInt();
             switch (choice) {
             case 1: sc.nextLine();
+                    System.out.println("Enter book id:");
+                    int bookid = sc.nextInt();
+                    sc.nextLine();
                     System.out.println("Enter book title:");
                     String title = sc.nextLine();
+                    if(title.isBlank()) {
+                        System.out.println("Book title cannot be blank.");
+                        break;
+                    }
                     System.out.println("Enter book author:");
                     String author = sc.nextLine();
-                    lms.addBook(title, author);
-                    System.out.println("Book added successfully.");
+                    if(author.isBlank()) {
+                    	System.out.println("Book Author cannot be blank.");
+                        break;
+                    }
+                    lms.addBook(bookid,title, author);
                     break;
 
            case 2:  sc.nextLine();
+                    System.out.println("Enter patron id:");
+                    int pid=sc.nextInt();
+                    sc.nextLine();
                     System.out.println("Enter patron name:");
                     String name = sc.nextLine();
-                    lms.addPatron(name);
-                    System.out.println("Patron added successfully.");
+                    if(name.isBlank()) {
+                    	System.out.println("Patron name cannot be blank");
+                    	break;
+                    }
+                    lms.addPatron(pid,name);
                     break;
                     
            case 3:  lms.listBooks();
@@ -54,19 +70,19 @@ public class LibraryManagementSystem {
                     break;
                     
            case 5:  sc.nextLine();
-                    System.out.println("Enter patron name:");
-                    name = sc.nextLine();
-                    System.out.println("Enter book title:");
-                    title = sc.nextLine();
-                    lms.borrowBook(name, title);
+                    System.out.println("Enter patron id:");
+                    pid=sc.nextInt();
+                    System.out.println("Enter book id:");
+                    bookid=sc.nextInt();
+                    lms.borrowBook(pid,bookid);
                     break;
                    
            case 6:  sc.nextLine();
-                    System.out.println("Enter patron name:");
-                    name = sc.nextLine();
-                    System.out.println("Enter book title:");
-                    title = sc.nextLine();
-                    lms.returnBook(name, title);
+                    System.out.println("Enter patron id:");
+                    pid=sc.nextInt();
+                    System.out.println("Enter book id:");
+                    bookid=sc.nextInt();
+                    lms.returnBook(pid,bookid);
                     break;
                     
            case 7:  lms.borrowedByPatrons();
@@ -82,40 +98,55 @@ public class LibraryManagementSystem {
             }
         }
     }
-
+	
 	private void borrowedByPatrons() {
 		System.out.println("List of Books Borrowed By Patrons:");
 		for(int i=0;i<patronCount;i++) {
 			Patron p=patrons[i];
-			System.out.print(p.getName() + " has ");
-			if(p.getBorrowedBook()!=null) {
-				System.out.println("borrowed "+p.getBorrowedBook().getTitle()+" book");
-			} else {
-				System.out.println("not borrowed any book");
-			}
+			if(p.getBorrowedBookCount()==0) {
+				continue;
+			} 
+			 System.out.println(p.getName() + " has borrowed:");
+		        for (int j = 0; j < p.getBorrowedBookCount(); j++) {
+		            System.out.println("  - " + p.getBorrowedBooks()[j].getTitle() + " book.");
+		        }			
 		}
 	}
-
-	private void addBook(String title, String author) {
+	private void addBook(int bookid, String title, String author) {
         if (bookCount >= maxB) {
             System.out.println("Book limit reached.");
             return;
         }
-        books[bookCount++] = new Book(title,author);
-    }
-
-    private void addPatron(String name) {
-        if (patronCount >= maxP) {
-            System.out.println("Patron limit reached.");
-            return;
+        for(int i=0;i<bookCount;i++) {
+        	if(books[i].getBookId()==bookid) {
+        		System.out.println("book id already exist!! ");
+        		return;
+        	}
         }
-        patrons[patronCount++] = new Patron(name);
+        books[bookCount++] = new Book(bookid,title,author);
+        System.out.println("book addedd successfully !!");
+        
     }
 
-    public void borrowBook(String patronName, String bookTitle) {
+    private void addPatron(int pid,String name) {
+    	if (patronCount >= maxP) {
+            System.out.println("Patron limit reached.");
+             return;
+ 	   } 
+        for(int i=0;i<patronCount;i++) { 
+    	  if(patrons[i].getPid()==pid) {
+  		    System.out.println("Already exist ");
+  		    return;
+    	}  
+      }
+          patrons[patronCount++] = new Patron(pid,name);
+          System.out.println("Patron added successfully.");       
+    }
+
+    public void borrowBook(int pid, int bookid) {
     	Patron patron =null;
     	for(int i=0;i<patronCount;i++) {
-    		if(patrons[i].getName().equals(patronName)) {
+    		if(patrons[i].getPid()==pid) {
     			patron=patrons[i];
     			break;
     		}
@@ -126,7 +157,7 @@ public class LibraryManagementSystem {
     	}
     	Book book=null;
     	for(int i=0;i<bookCount;i++) {
-    		if(books[i].getTitle().equals(bookTitle)) {
+    		if(books[i].getBookId()==bookid) {
     			book=books[i];
     			break;
     		}
@@ -144,10 +175,10 @@ public class LibraryManagementSystem {
         }
 
 
-    public void returnBook(String patronName, String bookTitle) {  
+    public void returnBook(int pid,int bookid) {  
     	Patron patron=null;
     	for(int i=0;i<patronCount;i++) {
-    		if(patrons[i].getName().equals(patronName)) {
+    		if(patrons[i].getPid()==pid) {
     			patron=patrons[i];
     			break;
     		}
@@ -156,22 +187,18 @@ public class LibraryManagementSystem {
     		System.out.println("patron not exist");
     		return;
     	}
-    	patron.returnBook();
-    	
-    }
-    
+    	patron.returnBook(bookid);  	
+    }    
     public void listBooks() {
     	System.out.println("---------Books list---------");
     	for(int i=0;i<bookCount;i++) {
     		books[i].printBooks();
-    	}
-    	System.out.println("-------------------------------");
+    	}  	
     }
     private void listPatrons() {
     	System.out.println("---------Patrons list---------");
     	for(int i=0;i<patronCount;i++) {
     		patrons[i].printPatrons();
-    	}
-    	System.out.println("-------------------------------");		
+    	}	
 	}
 }
