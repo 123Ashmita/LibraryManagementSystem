@@ -5,6 +5,7 @@ A simple console-based Java application that allows users to manage books and pa
 1.Add books and patrons   <br>
 2.Borrow and return books  <br>
 3.View all books and patrons  <br>
+4.View books borrowed by patrons <br>
 
 
 <br>
@@ -42,10 +43,12 @@ Choose 5 to borrow a book.   <br>
 Choose 6 to return it.  <br>
 
 * Notes   <br>
-1.Each patron can borrow only one book at a time.  <br>
+1.Each patron can borrow multiples book at a time.  <br>
 2.Book availability is checked before borrowing.   <br>
 <br>
 
 
   Github clone - https://github.com/123Ashmita/LibraryManagementSystem   <br>
   select master branch and able to see my project   <br>
+
+  I have updates this code before that i am not using patron id and book  id and now i am using patron id and book id to uniquely identify books and patrons.
